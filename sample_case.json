@@ -1,0 +1,19 @@
+{
+  "documents": {
+    "deployment.pdf": {"kind": "pdf", "pages": 1},
+    "api_log.csv": {"kind": "csv", "rows": 4},
+    "investigator.txt": {"kind": "text"}
+  },
+  "evidence": [
+    {"id":"retry-change","document_id":"deployment.pdf","page":1,"text":"Retry limit changed from one to three at deployment."},
+    {"id":"gateway-timeout","document_id":"api_log.csv","row":2,"text":"Payment gateway returned 504 after deployment."},
+    {"id":"pool-wait","document_id":"api_log.csv","row":3,"text":"Checkout request logged a database pool wait."},
+    {"id":"after-revert","document_id":"api_log.csv","row":4,"text":"Gateway timeout remained after retry revert."},
+    {"id":"repeated-call","document_id":"api_log.csv","row":5,"text":"A payment request was retried three times after deployment."},
+    {"id":"unknown-cause","document_id":"investigator.txt","locator":"paragraph 2","text":"No trace proves the cause."}
+  ],
+  "hypotheses": [
+    {"title":"Retry amplification","supporting_ids":["retry-change","gateway-timeout","pool-wait","repeated-call"],"contradicting_ids":["after-revert"]},
+    {"title":"Gateway instability","supporting_ids":["gateway-timeout","after-revert"],"contradicting_ids":[]}
+  ]
+}
